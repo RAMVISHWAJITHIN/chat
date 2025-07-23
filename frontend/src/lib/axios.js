@@ -1,6 +1,10 @@
 import axios from "axios";
 
+const isDev = import.meta.env.MODE === "development";
+
 export const axiosInstance = axios.create({
-  baseURL: import.meta.env.MODE === "development" ? "http://localhost:5001/api" : "/api",
+  baseURL: isDev
+    ? "http://localhost:5001/api"
+    : `${window.location.origin}/api`, // ensures it works even with custom domains
   withCredentials: true,
 });
